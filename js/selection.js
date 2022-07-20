@@ -7,24 +7,28 @@ let button_back = document.getElementById(`button_back`);
 button_back.addEventListener(`click`, backToSneakersOptions);
 
 /* This variable gets the value chosen by the user */
-let chosen_sneaker = Cookies.get(`selection`);
+let chosen_sneaker_json = Cookies.get(`selection`);
+let chosen_sneaker = JSON.parse(chosen_sneaker_json);
 
 /* This if statment compares the value chosen by the user. If was the black shoe, will add the image on the page */
-if (chosen_sneaker === `black`) {
-    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="https://images.pexels.com/photos/6050918/pexels-photo-6050918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" id="selection_${chosen_sneaker}">`)
+if (chosen_sneaker[`title`] === `black_sneaker`) {
+    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="${chosen_sneaker[`img_url`]}" alt="" id="selection_${chosen_sneaker[`title`]}"><br><h2 id="h2_price">$${chosen_sneaker[`price`]}</h2><p id="description">${chosen_sneaker[`description`]}</p>`);
 } 
 /* If was the orange shoe, will add the image on the page */
-else if (chosen_sneaker === `orange`) {
-    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="https://images.pexels.com/photos/6050922/pexels-photo-6050922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" id="selection_${chosen_sneaker}">`)
+else if (chosen_sneaker[`title`] === `orange_sneaker`) {
+    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="${chosen_sneaker[`img_url`]}" alt="" id="selection_${chosen_sneaker[`title`]}"><br><h2 id="h2_price">$${chosen_sneaker[`price`]}</h2><p id="description">${chosen_sneaker[`description`]}</p>`);
 } 
 /* If was the blue shoe, will add the image on the page */
-else if (chosen_sneaker === `blue`) {
-    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="https://images.pexels.com/photos/6050924/pexels-photo-6050924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" id="selection_${chosen_sneaker}">`)  
+else if (chosen_sneaker[`title`] === `blue_sneaker`) {
+    document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<br><img src="${chosen_sneaker[`img_url`]}" alt="" id="selection_${chosen_sneaker[`title`]}"><br><h2 id="h2_price">$${chosen_sneaker[`price`]}</h2><p id="description">${chosen_sneaker[`description`]}</p>`);
 } 
 /* And if the value is undefined, will add a message telling the user to go back to the options page */
 else {
     document.getElementById(`button_back`).insertAdjacentHTML(`afterEnd`, `<h1>Go back to the Sneakers Options and chose your sneaker.</h1>`)
 }
+
+let main = document.querySelector(`main`);
+main[`style`][`display`] = `grid`
 
 /* This block of code style the back button on the page */
  button_back[`style`][`backgroundImage`] = `linear-gradient(45deg, #f84a4a, #f18181)`;
@@ -36,13 +40,20 @@ else {
  button_back[`style`][`borderRadius`] = `10px`;
  button_back[`style`][`cursor`] = `pointer`;
  button_back[`style`][`justify-self`] = `center`;
- button_back[`style`][`marginLeft`] = `40vw`;
 
  /* This block of code style the chosen option by the user on the page */
-let image = document.getElementById(`selection_${chosen_sneaker}`);
+let image = document.getElementById(`selection_${chosen_sneaker[`title`]}`);
 image[`style`][`width`] = `350px`;
 image[`style`][`height`] = `350px`;
 image[`style`][`objectFit`] = `cover`;
 image[`style`][`boxShadow`] = `20px 20px 40px rgb(228, 228, 228)`;
-image[`style`][`marginLeft`] = `36.5vw`;
 image[`style`][`marginTop`] = `20px`;
+image[`style`][`justifySelf`] = `center`;
+
+let price = document.getElementById(`h2_price`);
+price[`style`][`color`] = `gray`
+price[`style`][`justifySelf`] = `center`;
+
+let description = document.getElementById(`description`);
+description[`style`][`width`] = `30%`;
+description[`style`][`justifySelf`] = `center`;
